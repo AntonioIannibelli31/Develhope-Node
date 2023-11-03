@@ -7,7 +7,6 @@ import {
   getAll,
   getOne,
 } from "./controllers/planets";
-
 const app = express();
 const port = process.env.PORT;
 app.use(express.json());
@@ -21,8 +20,3 @@ app.delete("/:id", deleteOne);
 app.listen(port, () => {
   console.log(`Server partito correttamente, porta http://localhost:${port}`);
 });
-
-// Add planets Controller (controllers/planets.ts) consisting of the following functions:
-// getAll getOneById create updateById deleteById.
-// Then, replace callback functions in routes (req: Request, res: Response) => with the functions above.
-// (For example: the route /api/planets should use getAll function.)
