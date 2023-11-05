@@ -7,9 +7,11 @@ const setupDb = () => {
   CREATE TABLE planets(
   id SERIAL NOT NULL PRIMARY KEY,
   name TEXT NOT NULL,
+  image TEXT
+  )
 `
   );
-  db.none(`INSERT INTO planets (name) VALUES('Earth'),('Mars)`);
+  db.none(`INSERT INTO planets (name) VALUES('Earth'),('Mars');`);
 };
 setupDb();
 console.log(db);
@@ -30,7 +32,7 @@ const create = (req, res) => {
 };
 const deleteOne = (req, res) => {
   const { id } = req.params;
-  db.none(`DELETE FROM planets WHERE id=$1;,`), Number(id);
+  db.none(`DELETE FROM planets WHERE id=$1;`), Number(id);
   res.status(200).json({ msg: "planet deleted" });
 };
 const update = (req, res) => {
@@ -40,4 +42,15 @@ const update = (req, res) => {
   res.status(200).json({ msg: "planet updated" });
 };
 
-export { getAll, getOne, create, deleteOne, update };
+const createImage = (req, res) => {
+  const { id } = req.params;
+  const filename = req.file.path;
+  if (filename) {
+    db.none(`UPDATE planets SET image=$2 WHERE id=$1,`[(id, filename)]);
+    res.status(201).json({ msg: "Image created" });
+  } else {
+    res.status(400).json({ msg: "error" });
+  }
+  console.log(req.file);
+};
+export { getAll, getOne, create, deleteOne, update, createImage };
