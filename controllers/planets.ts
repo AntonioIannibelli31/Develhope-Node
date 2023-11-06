@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 type Planet = {
   id: number;
   name: string;
@@ -19,15 +20,15 @@ let planets: Planets = [
   },
 ];
 
-const getAll = (req, res) => {
+const getAll = (req: Request, res: Response) => {
   res.status(200).json(planets);
 };
-const getOne = (req, res) => {
+const getOne = (req: Request, res: Response) => {
   const { id } = req.params;
   const planet = planets.find((planet) => planet.id === Number(id));
   res.status(200).json(planet);
 };
-const create = (req, res) => {
+const create = (req: Request, res: Response) => {
   const { id, name } = req.body;
   const newPlanet = { id, name };
 
@@ -36,14 +37,14 @@ const create = (req, res) => {
 
   console.log(planets);
 };
-const deleteOne = (req, res) => {
+const deleteOne = (req: Request, res: Response) => {
   const { id } = req.params;
   const { name } = req.body;
   planets = planets.map((p) => (p.id === Number(id) ? { ...p, name } : p));
   res.status(200).json({ msg: "planet updated" });
   console.log(planets);
 };
-const update = (req, res) => {
+const update = (req: Request, res: Response) => {
   const { id } = req.params;
   planets = planets.filter((planet) => planet.id !== Number(id));
   res.status(200).json({ msg: "planet deleted" });

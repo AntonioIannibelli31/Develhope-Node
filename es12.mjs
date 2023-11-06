@@ -1,11 +1,11 @@
 import express from "express";
 import "dotenv/config";
 import {
+  getAll,
+  getOne,
   create,
   update,
   deleteOne,
-  getAll,
-  getOne,
 } from "./controllers/planets";
 
 const app = express();
