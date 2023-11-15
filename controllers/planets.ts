@@ -37,14 +37,14 @@ const create = (req: Request, res: Response) => {
 
   console.log(planets);
 };
-const deleteOne = (req: Request, res: Response) => {
+const update = (req: Request, res: Response) => {
   const { id } = req.params;
   const { name } = req.body;
   planets = planets.map((p) => (p.id === Number(id) ? { ...p, name } : p));
   res.status(200).json({ msg: "planet updated" });
   console.log(planets);
 };
-const update = (req: Request, res: Response) => {
+const deleteOne = (req: Request, res: Response) => {
   const { id } = req.params;
   planets = planets.filter((planet) => planet.id !== Number(id));
   res.status(200).json({ msg: "planet deleted" });
